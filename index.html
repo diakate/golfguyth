@@ -117,36 +117,51 @@
 
 <script>
 const phrases = [
-  // Clubhouse
+  
+  const phrases = [
+  // Clubhouse (ch)
   {english:"How much for 9 or 18 holes?", thai:"เล่น 9 หลุม หรือ 18 หลุม ราคาเท่าไหร่ครับ?", phonetic:"Len gao lum / sip-paet lum ra-ka tao-rai krap/ka", category:"clubhouse", audio:"ch1.mp3"},
   {english:"I want a golf car", thai:"ขอเช่ารถกอล์ฟครับ", phonetic:"Kor chao rot golf krap/ka", category:"clubhouse", audio:"ch2.mp3"},
   {english:"How much does that cost?", thai:"ราคาเท่าไหร่ครับ?", phonetic:"Ra-ka tao-rai krap/ka?", category:"clubhouse", audio:"ch3.mp3"},
   {english:"Can I book a caddy, please?", thai:"จองแคดดี้ได้ไหมครับ", phonetic:"Jong caddy dai-mai krap/ka?", category:"clubhouse", audio:"ch4.mp3"},
 
-  // Social
+  // Social (so)
   {english:"Hello, my name is [name]", thai:"สวัสดีครับ ผมชื่อ...", phonetic:"Sawatdee krap/ka. Pom/chan chue...", category:"social", audio:"so1.mp3"},
   {english:"What is your name?", thai:"คุณชื่ออะไรครับ?", phonetic:"Khun chue a-rai krap/ka?", category:"social", audio:"so2.mp3"},
   {english:"How are you?", thai:"สบายดีไหมครับ?", phonetic:"Sabai dee mai krap/ka?", category:"social", audio:"so3.mp3"},
   {english:"Do you have children?", thai:"มีลูกไหมครับ?", phonetic:"Mee look mai krap/ka?", category:"social", audio:"so4.mp3"},
-  {english:"I really like this golf course", thai:"ชอบสนามกอล์ฟที่นี่มากครับ", phonetic:"Chop sanam golf tee-nee mak krap/ka", category:"social", audio:"so5.mp3"},
+  {english:"Do you live close to the golf field?", thai:"บ้านอยู่ใกล้สนามกอล์ฟไหมครับ?", phonetic:"Baan yoo glai sanam golf mai krap/ka?", category:"social", audio:"so5.mp3"},
+  {english:"I really like this golf course", thai:"ชอบสนามกอล์ฟที่นี่มากครับ", phonetic:"Chop sanam golf tee-nee mak krap/ka", category:"social", audio:"so6.mp3"},
 
-  // Clubs
+  // Clubs (cl)
   {english:"Driver", thai:"หัวไม้หนึ่ง", phonetic:"Hua-Mai-nung", category:"clubs", audio:"cl1.mp3"},
-  {english:"Iron 7", thai:"เหล็กเจ็ด", phonetic:"Lek-jed", category:"clubs", audio:"cl2.mp3"},
-  {english:"Putter", thai:"ไม้พัตต์", phonetic:"Mai-putt", category:"clubs", audio:"cl3.mp3"},
+  {english:"Wood 3", thai:"ไม้สาม", phonetic:"Mai-sam", category:"clubs", audio:"cl2.mp3"},
+  {english:"Iron 7", thai:"เหล็กเจ็ด", phonetic:"Lek-jed", category:"clubs", audio:"cl3.mp3"},
+  {english:"Wedge", thai:"เหล็กแก๊ป", phonetic:"Lek-gap", category:"clubs", audio:"cl4.mp3"},
+  {english:"Putter", thai:"ไม้พัตต์", phonetic:"Mai-putt", category:"clubs", audio:"cl5.mp3"},
 
-  // Numbers
+  // Numbers (nu)
   {english:"3", thai:"สาม", phonetic:"sam", category:"numbers", audio:"nu1.mp3"},
   {english:"4", thai:"สี่", phonetic:"see", category:"numbers", audio:"nu2.mp3"},
   {english:"5", thai:"ห้า", phonetic:"ha", category:"numbers", audio:"nu3.mp3"},
   {english:"6", thai:"หก", phonetic:"hok", category:"numbers", audio:"nu4.mp3"},
+  {english:"7", thai:"เจ็ด", phonetic:"jed", category:"numbers", audio:"nu5.mp3"},
+  {english:"8", thai:"แปด", phonetic:"paet", category:"numbers", audio:"nu6.mp3"},
+  {english:"9", thai:"เก้า", phonetic:"kao", category:"numbers", audio:"nu7.mp3"},
 
-  // Caddy Communication
+  // Caddy Communication (ca)
   {english:"How many yards to the hole?", thai:"กี่หลาถึงหลุมครับ?", phonetic:"Gii lah theung lum krap/ka?", category:"caddy", audio:"ca1.mp3"},
   {english:"Please take care of the scorecard", thai:"ช่วยถือสกอร์การ์ดให้หน่อยครับ?", phonetic:"Chuay thu score-card hai noy krap/ka", category:"caddy", audio:"ca2.mp3"},
-  {english:"The ball is in the water", thai:"ลูกกอล์ฟอยู่ในน้ำ", phonetic:"Look golf yoo nai nam", category:"caddy", audio:"ca3.mp3"},
-  {english:"Thank you!", thai:"ขอบคุณครับ", phonetic:"Khop khun krap/ka!", category:"caddy", audio:"ca4.mp3"}
+  {english:"I want iron number...", thai:"ขอเหล็ก...", phonetic:"Kor lek...", category:"caddy", audio:"ca3.mp3"},
+  {english:"I want wood number...", thai:"ขอไม้...", phonetic:"Kor mai...", category:"caddy", audio:"ca4.mp3"},
+  {english:"The ball is in the rough", thai:"ลูกกอล์ฟอยู่ในรัฟ", phonetic:"Look golf yoo nai ruff", category:"caddy", audio:"ca5.mp3"},
+  {english:"Let's look for the ball", thai:"ไปช่วยหาลูกกอล์ฟกันครับ", phonetic:"Pai chuay haa look golf gun krap/ka", category:"caddy", audio:"ca6.mp3"},
+  {english:"The ball is in the trees", thai:"ลูกกอล์ฟอยู่ในต้นไม้", phonetic:"Look golf yoo nai dton mai", category:"caddy", audio:"ca7.mp3"},
+  {english:"The ball is in the water", thai:"ลูกกอล์ฟอยู่ในน้ำ", phonetic:"Look golf yoo nai nam", category:"caddy", audio:"ca8.mp3"},
+  {english:"Thank you!", thai:"ขอบคุณครับ", phonetic:"Khop khun krap/ka!", category:"caddy", audio:"ca9.mp3"},
+  {english:"One beer, please", thai:"ขอเบียร์หนึ่งแก้วครับ", phonetic:"Kor bia neung kaew krap/ka", category:"caddy", audio:"ca10.mp3"}
 ];
+
 
 const results = document.getElementById('results');
 
