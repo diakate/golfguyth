@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Golf Thai Phrase Card</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f0f4f8;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+  }
+  .container {
+    width: 360px;
+    background: #fff;
+    border-radius: 20px;
+    padding: 15px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+  }
+  header {
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    color: #004d40;
+    margin-bottom: 8px;
+  }
+  .note {
+    background:#e0f2f1;
+    padding:8px;
+    border-radius:10px;
+    font-size:0.85em;
+    margin-bottom:10px;
+    color:#004d40;
+  }
+  .category-buttons {
+    display:flex;
+    flex-wrap:wrap;
+    gap:5px;
+    margin-bottom:12px;
+  }
+  .category-buttons button {
+    flex:1;
+    padding:8px;
+    border-radius:10px;
+    border:none;
+    background:#00796b;
+    color:#fff;
+    font-size:0.85em;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:5px;
+  }
+  .category-buttons button.active { background:#004d40; }
+  #searchInput {
+    width:100%;
+    padding:10px;
+    margin-bottom:12px;
+    border-radius:10px;
+    border:1px solid #b2dfdb;
+    font-size:16px;
+  }
+  .card {
+    border-radius: 15px;
+    padding: 12px;
+    margin-bottom: 12px;
+    position: relative;
+    color:#fff;
+  }
+  .card .english { font-weight:bold; font-size:16px; margin-bottom:5px; }
+  .card .thai-script { font-size:15px; margin-bottom:3px; }
+  .card .thai-phonetic { font-style:italic; font-size:14px; margin-bottom:5px; }
+  .tts-button {
+    position:absolute;
+    top:10px;
+    right:10px;
+    background:rgba(255,255,255,0.3);
+    color:#fff;
+    border:none;
+    border-radius:50%;
+    width:30px;
+    height:30px;
+    cursor:pointer;
+    font-size:16px;
+  }
+  /* Colors per category */
+  .clubhouse { background:#4db6ac; }
+  .social { background:#81c784; }
+  .clubs { background:#64b5f6; }
+  .numbers { background:#ffb74d; }
+  .caddy { background:#ba68c8; }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header>Golf Thai Phrase Card</header>
+  <div class="note">
+    *ผู้หญิงพูด “ค่ะ” / ผู้ชายพูด “ครับ"<br>
+    *Women say "ka", men say "krab"
+  </div>
+
+  <div class="category-buttons">
+    <button class="active" onclick="showCategory('clubhouse', this)">⛳ Clubhouse</button>
+    <button onclick="showCategory('social', this)">🤝 Social Phrases</button>
+    <button onclick="showCategory('clubs', this)">🏌️ Clubs</button>
+    <button onclick="showCategory('numbers', this)">🔢 Numbers</button>
+    <button onclick="showCategory('caddy', this)">📝 Caddy Comm.</button>
+  </div>
+
+  <input type="text" id="searchInput" placeholder="Search phrase...">
+  <div id="results"></div>
+</div>
+
+<script>
+const phrases = [
+  // Clubhouse
+  {english:"How much for 9 or 18 holes?", thai:"เล่น 9 หลุม หรือ 18 หลุม ราคาเท่าไหร่ครับ?", phonetic:"Len gao lum / sip-paet lum ra-ka tao-rai krap/ka", category:"clubhouse", audio:"ch1.mp3"},
+  {english:"I want a golf car", thai:"ขอเช่ารถกอล์ฟครับ", phonetic:"Kor chao rot golf krap/ka", category:"clubhouse", audio:"ch2.mp3"},
+  {english:"How much does that cost?", thai:"ราคาเท่าไหร่ครับ?", phonetic:"Ra-ka tao-rai krap/ka?", category:"clubhouse", audio:"ch3.mp3"},
+  {english:"Can I book a caddy, please?", thai:"จองแคดดี้ได้ไหมครับ", phonetic:"Jong caddy dai-mai krap/ka?", category:"clubhouse", audio:"ch4.mp3"},
+
+  // Social
+  {english:"Hello, my name is [name]", thai:"สวัสดีครับ ฉันชื่อ...", phonetic:"Sawatdee krap/ka. Pom/chan chue...", category:"social", audio:"so1.mp3"},
+  {english:"What is your name?", thai:"คุณชื่ออะไรครับ?", phonetic:"Khun chue a-rai krap/ka?", category:"social", audio:"so2.mp3"},
+  {english:"How are you?", thai:"สบายดีไหมครับ?", phonetic:"Sabai dee mai krap/ka?", category:"social", audio:"so3.mp3"},
+  {english:"Do you have children?", thai:"มีลูกไหมครับ?", phonetic:"Mee look mai krap/ka?", category:"social", audio:"so4.mp3"},
+  {english:"I really like this golf course", thai:"ชอบสนามกอล์ฟที่นี่มากครับ", phonetic:"Chop sanam golf tee-nee mak krap/ka", category:"social", audio:"so5.mp3"},
+
+  // Clubs
+  {english:"Driver", thai:"ไม้หัวหนึ่ง", phonetic:"Mai-hua-nung", category:"clubs", audio:"cl1.mp3"},
+  {english:"Iron 7", thai:"เหล็กเจ็ด", phonetic:"Lek-jed", category:"clubs", audio:"cl2.mp3"},
+  {english:"Putter", thai:"ไม้พัตต์", phonetic:"Mai-putt", category:"clubs", audio:"cl3.mp3"},
+
+  // Numbers
+  {english:"3", thai:"สาม", phonetic:"sam", category:"numbers", audio:"nu1.mp3"},
+  {english:"4", thai:"สี่", phonetic:"see", category:"numbers", audio:"nu2.mp3"},
+  {english:"5", thai:"ห้า", phonetic:"ha", category:"numbers", audio:"nu3.mp3"},
+  {english:"6", thai:"หก", phonetic:"hok", category:"numbers", audio:"nu4.mp3"},
+
+  // Caddy Communication
+  {english:"How many yards to the hole?", thai:"กี่หลาถึงหลุมครับ?", phonetic:"Gii lah theung lum krap/ka?", category:"caddy", audio:"ca1.mp3"},
+  {english:"Please take care of the scorecard", thai:"ช่วยถือสกอร์การ์ดให้หน่อยครับ?", phonetic:"Chuay thu score-card hai noy krap/ka", category:"caddy", audio:"ca2.mp3"},
+  {english:"The ball is in the water", thai:"ลูกกอล์ฟอยู่ในน้ำ", phonetic:"Look golf yoo nai nam", category:"caddy", audio:"ca3.mp3"},
+  {english:"Thank you!", thai:"ขอบคุณครับ", phonetic:"Khop khun krap/ka!", category:"caddy", audio:"ca4.mp3"}
+];
+
+const results = document.getElementById('results');
+
+function renderCards(list){
+  results.innerHTML='';
+  list.forEach(p=>{
+    const card = document.createElement('div');
+    card.className=`card ${p.category}`;
+    card.innerHTML=`
+      <div class="english">${p.english}</div>
+      <div class="thai-script">${p.thai}</div>
+      <div class="thai-phonetic">${p.phonetic}</div>
+      <button class="tts-button" onclick="playAudio('${p.audio}')">🔊</button>
+    `;
+    results.appendChild(card);
+  });
+}
+
+function showCategory(cat, btn){
+  document.querySelectorAll('.category-buttons button').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const filtered = phrases.filter(p=>p.category===cat);
+  renderCards(filtered);
+}
+
+// initial render
+showCategory('clubhouse', document.querySelector('.category-buttons button.active'));
+
+// search
+const searchInput = document.getElementById('searchInput');
+searchInput.addEventListener('keyup', ()=>{
+  const filter = searchInput.value.toLowerCase();
+  const filtered = phrases.filter(p=>{
+    return p.english.toLowerCase().includes(filter) || 
+           p.thai.includes(filter) || 
+           p.phonetic.toLowerCase().includes(filter);
+  });
+  renderCards(filtered);
+});
+
+// เล่นไฟล์เสียง
+function playAudio(file){
+  const audio = new Audio(file); // ไฟล์อยู่ในโฟลเดอร์เดียวกับ HTML
+  audio.play();
+}
+
+</script>
+
+</body>
+</html>
